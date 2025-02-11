@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:to_do_app/view/auth/login_screen.dart';
+import 'package:to_do_app/view/auth/onboarding_screen.dart';
 
 
 
@@ -20,7 +19,7 @@ class _SplashscreenState extends State<SplashScreen> {
                     
     super.initState();
     Timer(Duration(seconds: 4) ,(){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OnboardingScreen()));
     });
   }
   @override
@@ -34,7 +33,7 @@ class _SplashscreenState extends State<SplashScreen> {
         decoration: BoxDecoration(
          color: const Color.fromARGB(255, 163, 104, 104)
         ),
-         
+         child: Center(child: Text('SplashScreen')),
         ),
     );
   }
