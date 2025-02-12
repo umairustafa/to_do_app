@@ -16,7 +16,8 @@ class TittletaskScreen extends StatelessWidget {
               child: GestureDetector(onTap: () {
                 Navigator.pop(context,  MaterialPageRoute(builder: (context) => TodohomeScreen(),));
               },
-                child: AppIcons.icon1),
+                child: Icon(AppIcons.arrow_circle_left_outlined,size: 40.sp,)
+                ),
             
                  ),SizedBox(height: 40.h
                  ,),

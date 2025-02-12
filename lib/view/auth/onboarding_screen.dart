@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:to_do_app/constant/app_colors.dart';
 import 'package:to_do_app/constant/app_images.dart';
-import 'package:to_do_app/view/auth/login_screen.dart';
+import 'package:to_do_app/view/auth/sign_up_screen.dart';
 import 'package:to_do_app/widgets/button/commonbutton.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               padding: const EdgeInsets.only(left: 25),
               child: Padding(
                 padding: const EdgeInsets.only(right: 5),
-                child: AppImages.Image1
+                child: Image.asset(AppImages.Image1)
               ),
             ),
           ),SizedBox(height: 43.h,),
@@ -37,7 +37,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       
    Commonbutton(title:' Get Started ', onTap: (){
 
-Get.to(LoginScreen());
+Get.to(SignUpScreen());
 
 // Get.back();
       // Navigator.push(context,  MaterialPageRoute(builder: (context) => LoginScreen(),));

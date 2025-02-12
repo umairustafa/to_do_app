@@ -71,7 +71,7 @@ class _TodohomeScreenState extends State<TodohomeScreen> {
 
       floatingActionButton: FloatingActionButton(
         
-        child: AppIcons.icon2,
+        child: Icon(AppIcons.add),
         backgroundColor: AppColors.color1,
         
        onPressed: (){ 

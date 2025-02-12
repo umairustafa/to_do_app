@@ -5,7 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:to_do_app/constant/app_colors.dart';
 import 'package:to_do_app/constant/app_icons.dart';
 import 'package:to_do_app/constant/app_images.dart';
-import 'package:to_do_app/view/auth/login_screen.dart';
+import 'package:to_do_app/view/auth/sign_up_screen.dart';
 import 'package:to_do_app/view/user/todohome_screen.dart';
 import 'package:to_do_app/widgets/button/commonbutton.dart';
 import 'package:to_do_app/widgets/fields/CommonTextField.dart';
@@ -33,16 +33,17 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             padding: const EdgeInsets.only(right: 324,top: 32,left: 14),
             
               child: GestureDetector(onTap: () {
-                Navigator.pop(context,  MaterialPageRoute(builder: (context) => LoginScreen(),));
+                Navigator.pop(context,  MaterialPageRoute(builder: (context) => SignUpScreen(),));
               },
-                child: AppIcons.icon1),
+                child: Icon(AppIcons.arrow_circle_left_outlined,size: 40.sp,)
+                ),
             
                  ),SizedBox(height: 79.h,),
            Text('Welcome Onboard!',style: TextStyle(color: AppColors.color3,fontWeight: FontWeight.bold,fontSize: 30.sp),),
                  SizedBox(height: 18.h,),
                  Padding(
             padding: const EdgeInsets.only(left: 92),
-            child: AppImages.Image2,
+            child: Image.asset(AppImages.Image2),
            
                  ),
                  Text('Add What your want to do later on',style: TextStyle(color: AppColors.color1,fontSize: 15.sp ),),

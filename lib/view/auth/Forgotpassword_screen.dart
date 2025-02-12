@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
   
    
 
-   final TextEditingController ForgotPasswordController = TextEditingController();
+   final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
      final _formKey = GlobalKey<FormState>();
@@ -37,14 +38,15 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
               child: GestureDetector(onTap: () {
                  Navigator.pop(context,  MaterialPageRoute(builder: (context) => SigninScreen(),));
               },
-                child: AppIcons.icon1),
+                child: Icon(AppIcons.arrow_circle_left_outlined,size: 40.sp,)
+                ),
             
                  ),SizedBox(height: 79.h,),
            Text('Forgot Password',style: TextStyle(color: AppColors.color3,fontWeight: FontWeight.bold,fontSize: 30.sp),),
                  SizedBox(height: 18.h,),
                  Padding(
             padding: const EdgeInsets.only(left: 92),
-            child: AppImages.Image2,
+            child: Image.asset(AppImages.Image2),
            
                  ),
                  SizedBox(height: 26.h,),
@@ -54,10 +56,14 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
                           }return null;
                         },
 
-                  hintText: 'Forgot Password', controller: ForgotPasswordController),
+                  hintText: 'Forgot Password', controller: emailController),
            SizedBox(height: 45.h,),
-                 Commonbutton(title: 'Forgot Password', onTap: (){ 
+                 Commonbutton(title: 'Forgot Password', onTap: ()async{ 
+               
+
                     if (_formKey.currentState!.validate()) {
+                       await FirebaseAuth.instance
+               .sendPasswordResetEmail(email: emailController.text);
                                 Get.to(SigninScreen());
                         }
 

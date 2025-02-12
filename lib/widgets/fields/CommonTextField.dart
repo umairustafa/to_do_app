@@ -18,7 +18,8 @@ class CommonTextfield extends StatelessWidget {
       child:  TextFormField(
       validator: validator,
       obscureText: isPassword??false,
-
+       
+        
         controller: controller,
         enabled: true,
         decoration: InputDecoration(
@@ -30,6 +31,7 @@ class CommonTextfield extends StatelessWidget {
             color: AppColors.color3,
           ),
           filled: true,
+          
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -39,10 +41,12 @@ class CommonTextfield extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: AppColors.color2, width: 2),
           ),
+          
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: AppColors.color2, width: 2),
           ),
+          
           contentPadding: EdgeInsets.all(15),
         ),
       ),
