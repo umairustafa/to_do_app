@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,6 +68,7 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
                 height: 26.h,
               ),
               CommonTextfield(
+                
                   validator: (Value) {
                     if (Value == '' || Value == null) {
                       return 'Please entre your email';
@@ -90,9 +93,15 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
 
                         await FirebaseAuth.instance.sendPasswordResetEmail(
                             email: emailController.text);
-                        Get.to(SigninScreen());
-                      } catch (e) {
+                        Get.snackbar('Succes', e.toString());
+                         setState(() {
+                            isLoading = false;
+                          });
+                      }on FirebaseAuthException catch (e) {
                         Get.snackbar('Error ', e.toString());
+                          setState(() {
+                            isLoading = false;
+                          });
                       }
                     }
                   })

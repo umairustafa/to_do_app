@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:to_do_app/view/auth/onboarding_screen.dart';
+import 'package:to_do_app/view/auth/sign_up_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +21,7 @@ class _SplashscreenState extends State<SplashScreen> {
       final bool onboardingplyy = box.read('OnboardingScreen');
       if (onboardingplyy) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => SplashScreen()));
+            context, MaterialPageRoute(builder: (_) => SignUpScreen()));
       }else{
          Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => OnboardingScreen()));

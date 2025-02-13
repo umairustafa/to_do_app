@@ -131,8 +131,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             password: PasswordController.text,
                           );
                           Get.to(() => AddTodoScreen());
+                            setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           Get.snackbar('Error ', e.toString());
+                           setState(() {
+                            isLoading = false;
+                          });
                         }
                       }
                     }),

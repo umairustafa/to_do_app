@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       
    Commonbutton(title:' Get Started ', onTap: (){
             final box=GetStorage();
-            box.write('onboarding', true);
+            box.write('OnboardingScreen', true);
             Get.to(SignUpScreen());
 
 
