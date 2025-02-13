@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:to_do_app/constant/app_colors.dart';
 import 'package:to_do_app/constant/app_images.dart';
 import 'package:to_do_app/view/auth/sign_up_screen.dart';
@@ -36,12 +37,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       , SizedBox(height: 75.h,),
       
    Commonbutton(title:' Get Started ', onTap: (){
+            final box=GetStorage();
+            box.write('onboarding', true);
+            Get.to(SignUpScreen());
 
-Get.to(SignUpScreen());
 
 // Get.back();
       // Navigator.push(context,  MaterialPageRoute(builder: (context) => LoginScreen(),));
-   })
+   }
+   
+   
+   )
         ],
       ),
     );

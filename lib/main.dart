@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:to_do_app/view/auth/Splash_screen.dart';
 import 'package:to_do_app/firebase_options.dart';
 
@@ -10,6 +11,12 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+       await GetStorage.init();
+       final box = GetStorage();
+       if (box.read('OnboardingScreen')==null) {
+         box.write('OnboardingScreen',false);
+       }
+
   runApp(const MyApp());
 }
 

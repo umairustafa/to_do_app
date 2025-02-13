@@ -18,60 +18,86 @@ class ForgotpasswordScreen extends StatefulWidget {
 }
 
 class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
-  
-   
-
-   final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-     final _formKey = GlobalKey<FormState>();
+    final _formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 235, 235),
-       body: SingleChildScrollView(
-         child: Form(
-          key: _formKey,
-
-           child: Column(children: [   Padding(
-            padding: const EdgeInsets.only(right: 324,top: 32,left: 14),
-            
-              child: GestureDetector(onTap: () {
-                 Navigator.pop(context,  MaterialPageRoute(builder: (context) => SigninScreen(),));
-              },
-                child: Icon(AppIcons.arrow_circle_left_outlined,size: 40.sp,)
-                ),
-            
-                 ),SizedBox(height: 79.h,),
-           Text('Forgot Password',style: TextStyle(color: AppColors.color3,fontWeight: FontWeight.bold,fontSize: 30.sp),),
-                 SizedBox(height: 18.h,),
-                 Padding(
-            padding: const EdgeInsets.only(left: 92),
-            child: Image.asset(AppImages.Image2),
-           
-                 ),
-                 SizedBox(height: 26.h,),
-                 CommonTextfield(  validator: (Value) {
-                          if (Value ==''|| Value==null) {
-                            return 'Please entre your email';
-                          }return null;
-                        },
-
-                  hintText: 'Forgot Password', controller: emailController),
-           SizedBox(height: 45.h,),
-                 Commonbutton(title: 'Forgot Password', onTap: ()async{ 
-               
-
+        backgroundColor: const Color.fromARGB(255, 235, 235, 235),
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 324, top: 32, left: 14),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SigninScreen(),
+                          ));
+                    },
+                    child: Icon(
+                      AppIcons.arrow_circle_left_outlined,
+                      size: 40.sp,
+                    )),
+              ),
+              SizedBox(
+                height: 79.h,
+              ),
+              Text(
+                'Forgot Password',
+                style: TextStyle(
+                    color: AppColors.color3,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.sp),
+              ),
+              SizedBox(
+                height: 18.h,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 92),
+                child: Image.asset(AppImages.Image2),
+              ),
+              SizedBox(
+                height: 26.h,
+              ),
+              CommonTextfield(
+                  validator: (Value) {
+                    if (Value == '' || Value == null) {
+                      return 'Please entre your email';
+                    }
+                    return null;
+                  },
+                  hintText: 'Forgot Password',
+                  controller: emailController),
+              SizedBox(
+                height: 45.h,
+              ),
+              Commonbutton(
+                isLoading: isLoading,
+                  title: 'Forgot Password',
+                  onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                       await FirebaseAuth.instance
-               .sendPasswordResetEmail(email: emailController.text);
-                                Get.to(SigninScreen());
-                        }
+                      try {
+                        
+                        setState(() {
+                            isLoading = true;
+                          });
 
-           
-                 })
-                 ]),
-         ),
-       )
-    );
+                        await FirebaseAuth.instance.sendPasswordResetEmail(
+                            email: emailController.text);
+                        Get.to(SigninScreen());
+                      } catch (e) {
+                        Get.snackbar('Error ', e.toString());
+                      }
+                    }
+                  })
+            ]),
+          ),
+        ));
   }
 }
