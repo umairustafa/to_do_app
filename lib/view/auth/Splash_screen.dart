@@ -1,16 +1,16 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:to_do_app/view/auth/Signin_screen.dart';
 import 'package:to_do_app/view/auth/onboarding_screen.dart';
-import 'package:to_do_app/view/auth/sign_up_screen.dart';
+import 'package:to_do_app/view/user/todohome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-
   @override
   State<SplashScreen> createState() => _SplashscreenState();
 }
-
 class _SplashscreenState extends State<SplashScreen> {
   final box = GetStorage();
   @override
@@ -19,15 +19,20 @@ class _SplashscreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 4), () {
       final bool onboardingplyy = box.read('OnboardingScreen');
       if (onboardingplyy) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => SignUpScreen()));
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => TodohomeScreen()));
+        } else {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => SigninScreen()));
+        }
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => OnboardingScreen()));
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

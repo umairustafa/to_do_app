@@ -9,13 +9,12 @@ import 'package:to_do_app/constant/app_images.dart';
 import 'package:to_do_app/view/auth/sign_up_screen.dart';
 import 'package:to_do_app/widgets/button/commonbutton.dart';
 import 'package:to_do_app/widgets/fields/CommonTextField.dart';
+
 class AddTodoScreen extends StatefulWidget {
   const AddTodoScreen({super.key});
-
   @override
   State<AddTodoScreen> createState() => _AddTodoScreenState();
 }
-
 class _AddTodoScreenState extends State<AddTodoScreen> {
   final TextEditingController titelController = TextEditingController();
   final TextEditingController DescriptionController = TextEditingController();
@@ -96,38 +95,39 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   isLoading: isLoading,
                   title: 'Add to list ',
                   onTap: () async {
-                   
                     if (_formKey.currentState!.validate()) {
                       try {
-                      setState(() {
-                        isLoading = true;
-                      });
-                //  await   FirebaseFirestore.instance.collection('todo').doc().set({
-                //       'title':'slhehe'
-                //     });
-                      DocumentReference docRef =
-                   await       FirebaseFirestore.instance.collection('todo').doc();
-                      await docRef.set({
-                       
-                        'title': titelController.text,
-                        'description': DescriptionController.text,
-                        'time': DateTime.now(),
-                      });
-                      setState(() {
-                        isLoading = false;
-                      });
-                      Get.back();
-                      Get.snackbar('succes', 'field add');
-                    } on FirebaseException catch (e) {
-                      Get.snackbar('error', e.toString());
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
+                        setState(() {
+                          isLoading = true;
+                        });
+                        //  await   FirebaseFirestore.instance.collection('todo').doc().set({
+                        //       'title':'slhehe'
+                        //     });
+                        DocumentReference docRef = await FirebaseFirestore
+                            .instance
+                            .collection('todo')
+                            .doc();
+                        await docRef.set({
+                          'title': titelController.text,
+                          'description': DescriptionController.text,
+                          'time': DateTime.now().toString(),
+                        });
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Get.back();
+                        Get.snackbar('succes', 'field add');
+                      } on FirebaseException catch (e) {
+                        Get.snackbar('error', e.toString());
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
                     }
                   }),
             ]),
           ),
-        ));
+       )
+    );
   }
 }
