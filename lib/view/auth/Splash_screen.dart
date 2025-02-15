@@ -12,8 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<SplashScreen> {
-
-  final box=GetStorage();
+  final box = GetStorage();
   @override
   void initState() {
     super.initState();
@@ -22,12 +21,10 @@ class _SplashscreenState extends State<SplashScreen> {
       if (onboardingplyy) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => SignUpScreen()));
-      }else{
-         Navigator.pushReplacement(
+      } else {
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => OnboardingScreen()));
       }
-          
-
     });
   }
 
