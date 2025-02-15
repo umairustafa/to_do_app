@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -130,13 +131,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             email: emailController.text,
                             password: PasswordController.text,
                           );
+
+                          String UserId =
+                              FirebaseAuth.instance.currentUser!.uid.toString();
+
+                          await FirebaseFirestore.instance
+                              .collection('userinfo')
+                              .doc(UserId)
+                              .set({
+                            'name': nameController.text,
+                            'email': emailController.text,
+                            'userId': UserId,
+                            'image': ''
+                          });
+
+                          // DocumentReference docRef = await FirebaseFirestore
+                          //     .instance  
+                          //     .collection('userinfo')
+                          //     .doc();
+                          // await docRef.set({
+                          //   'name': nameController.text,
+                          //   'email': emailController.text,
+                          //   'userId': UserId,
+                          //   'image': ''
+                          // });
+
                           Get.to(() => AddTodoScreen());
-                            setState(() {
+                          setState(() {
                             isLoading = false;
                           });
                         } catch (e) {
                           Get.snackbar('Error ', e.toString());
-                           setState(() {
+                          setState(() {
                             isLoading = false;
                           });
                         }
@@ -160,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 color: AppColors.color1,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp),
-                          ))
+                          )),
                     ],
                   ),
                 )

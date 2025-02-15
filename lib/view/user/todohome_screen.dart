@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +15,17 @@ class TodohomeScreen extends StatefulWidget {
   State<TodohomeScreen> createState() => _TodohomeScreenState();
 }
 class _TodohomeScreenState extends State<TodohomeScreen> {
+   final Random _random = Random();
+
+   Color getRandomDimColor(){
+    return Color.fromARGB(
+       25,
+       _random.nextInt(100),
+       _random.nextInt(500),
+       _random.nextInt(307),
+      );
+   }    //Random color f
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +65,14 @@ class _TodohomeScreenState extends State<TodohomeScreen> {
           ),
           Row(
             children: [
-              Text(
-                'Todo  Tasks.',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Text(
+                  'Todo  Tasks.',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -85,7 +100,7 @@ class _TodohomeScreenState extends State<TodohomeScreen> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 40.w, vertical: 5.h),
+                          EdgeInsets.symmetric(horizontal: 30.w, vertical: 5.h),
                       child: Container(
                         height: 65.h,
                         width: 336.w,
@@ -101,7 +116,7 @@ class _TodohomeScreenState extends State<TodohomeScreen> {
                               snapshot.data!.docs[index]['time'])),
                         ),
                         decoration: BoxDecoration(
-                            color: AppColors.color4,
+                            color: getRandomDimColor(),
                             borderRadius: BorderRadius.circular(10)),
                       ),
                     );
@@ -113,7 +128,8 @@ class _TodohomeScreenState extends State<TodohomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(AppIcons.add),
+          child: Icon(AppIcons.add,color: AppColors.color2,size: 40,),
+          shape: CircleBorder(),
           backgroundColor: AppColors.color1,
           onPressed: () {
             Get.to(AddTodoScreen());
