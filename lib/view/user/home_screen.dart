@@ -31,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   } //Random color f
 
+  final String userId = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
                 padding: const EdgeInsets.only(top: 90),
                 child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('userinfo')
-                      .doc(userid)
-                      .snapshots(),
+                  stream: fetchUserInfo(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -64,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: CircleAvatar(
                               radius: 64,
-                              backgroundColor: const Color.fromARGB(255, 205, 204, 204),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 205, 204, 204),
                               backgroundImage:
                                   NetworkImage(snapshot.data!['image'] ?? ''),
                             ),
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 28.h,
           ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('todo').snapshots(),
+            stream:fetchtodo(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
@@ -190,5 +190,21 @@ class _HomeScreenState extends State<HomeScreen> {
             Get.to(AddTodoScreen());
           }),
     );
+  }
+
+  Stream<DocumentSnapshot> fetchUserInfo() {
+     
+    return FirebaseFirestore.instance
+        .collection('userinfo')
+        .doc(userId)
+        .snapshots();
+  }
+
+
+  Stream<QuerySnapshot> fetchtodo(){
+    return   FirebaseFirestore.instance
+                .collection('todo')
+                .where('uId', isEqualTo: userId)
+                .snapshots();
   }
 }
