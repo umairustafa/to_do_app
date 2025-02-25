@@ -23,6 +23,7 @@ class _SigninScreenState extends State<SigninScreen> {
   final TextEditingController EmailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
   bool isLoading = false;
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -69,7 +70,7 @@ class _SigninScreenState extends State<SigninScreen> {
               height: 8.h,
             ),
             CommonTextfield(
-              inputType: TextInputType.emailAddress,
+                inputType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == '' || value == null) {
                     return 'Please enter your Email';
@@ -82,7 +83,7 @@ class _SigninScreenState extends State<SigninScreen> {
               height: 20.h,
             ),
             CommonTextfield(
-              inputType:TextInputType.visiblePassword ,
+                inputType: TextInputType.visiblePassword,
                 validator: (value) {
                   if (value == '' || value == null) {
                     return 'Please enter Confirm Password';
@@ -116,29 +117,8 @@ class _SigninScreenState extends State<SigninScreen> {
             Commonbutton(
                 isLoading: isLoading,
                 title: 'Sign In',
-                onTap: () async {
-                  try {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        isLoading = true;
-                      });
-
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: EmailController.text,
-                        password: PasswordController.text,
-                      );
-
-                      Get.to(() => HomeScreen());
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
-                  } catch (e) {
-                    Get.snackbar("error", e.toString());
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
+                onTap: () {
+                  signin();
                 }),
             Padding(
               padding: const EdgeInsets.only(left: 80, top: 35),
@@ -166,5 +146,30 @@ class _SigninScreenState extends State<SigninScreen> {
         ),
       ),
     );
+  }
+
+  Future signin() async {
+    try {
+      if (_formKey.currentState!.validate()) {
+        setState(() {
+          isLoading = true;
+        });
+
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: EmailController.text,
+          password: PasswordController.text,
+        );
+
+        Get.to(() => HomeScreen());
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      Get.snackbar("error", e.toString());
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

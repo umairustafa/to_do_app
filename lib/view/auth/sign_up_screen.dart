@@ -19,6 +19,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
@@ -123,54 +124,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Commonbutton(
                     isLoading: isLoading,
                     title: 'Sign Up ',
-                    onTap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        try {
-                          setState(() {
-                            isLoading = true;
-                          });
-
-                          await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                            email: emailController.text,
-                            password: PasswordController.text,
-                          );
-
-                          String UserId =
-                              FirebaseAuth.instance.currentUser!.uid.toString();
-
-                          await FirebaseFirestore.instance
-                              .collection('userinfo')
-                              .doc(UserId)
-                              .set({
-                            'name': nameController.text,
-                            'email': emailController.text,
-                            'userId': UserId,
-                            'image': ''
-                          });
-
-                          // DocumentReference docRef = await FirebaseFirestore
-                          //     .instance  
-                          //     .collection('userinfo')
-                          //     .doc();
-                          // await docRef.set({
-                          //   'name': nameController.text,
-                          //   'email': emailController.text,
-                          //   'userId': UserId,
-                          //   'image': ''
-                          // });
-
-                          Get.to(() => AddTodoScreen());
-                          setState(() {
-                            isLoading = false;
-                          });
-                        } catch (e) {
-                          Get.snackbar('Error ', e.toString());
-                          setState(() {
-                            isLoading = false;
-                          });
-                        }
-                      }
+                    onTap: ()  {
+                     SignUp();
                     }),
                 Padding(
                   padding: const EdgeInsets.only(left: 80, top: 40),
@@ -199,4 +154,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ));
   }
+
+Future SignUp() async{
+        if (_formKey.currentState!.validate()) {
+                        try {
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: emailController.text,
+                            password: PasswordController.text,
+                          );
+
+                          String UserId =
+                              FirebaseAuth.instance.currentUser!.uid.toString();
+
+                          await FirebaseFirestore.instance
+                              .collection('userinfo')
+                              .doc(UserId)
+                              .set({
+                            'name': nameController.text,
+                            'email': emailController.text,
+                            'userId': UserId,
+                            'image': ''
+                          });
+
+                         
+
+                          Get.to(() => AddTodoScreen());
+                          setState(() {
+                            isLoading = false;
+                          });
+                        } catch (e) {
+                          Get.snackbar('Error ', e.toString());
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
+                      }
+}
 }

@@ -20,12 +20,12 @@ class ForgotpasswordScreen extends StatefulWidget {
 }
 
 class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 235, 235, 235),
         body: SingleChildScrollView(
@@ -68,7 +68,7 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
                 height: 26.h,
               ),
               CommonTextfield(
-                inputType: TextInputType.visiblePassword,
+                  inputType: TextInputType.visiblePassword,
                   validator: (Value) {
                     if (Value == '' || Value == null) {
                       return 'Please entre your email';
@@ -81,32 +81,35 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
                 height: 45.h,
               ),
               Commonbutton(
-                isLoading: isLoading,
+                  isLoading: isLoading,
                   title: 'Forgot Password',
-                  onTap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      try {
-                        
-                        setState(() {
-                            isLoading = true;
-                          });
-
-                        await FirebaseAuth.instance.sendPasswordResetEmail(
-                            email: emailController.text);
-                        Get.snackbar('Succes', e.toString());
-                         setState(() {
-                            isLoading = false;
-                          });
-                      }on FirebaseAuthException catch (e) {
-                        Get.snackbar('Error ', e.toString());
-                          setState(() {
-                            isLoading = false;
-                          });
-                      }
-                    }
+                  onTap: () {
+                    Forgot(AutofillHints.password);
                   })
             ]),
           ),
         ));
+  }
+
+  Future Forgot(String Password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+
+        await FirebaseAuth.instance
+            .sendPasswordResetEmail(email: emailController.text);
+        Get.snackbar('Succes', e.toString());
+        setState(() {
+          isLoading = false;
+        });
+      } on FirebaseAuthException catch (e) {
+        Get.snackbar('Error ', e.toString());
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 }

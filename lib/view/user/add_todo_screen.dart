@@ -21,6 +21,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   final TextEditingController titelController = TextEditingController();
   final TextEditingController DescriptionController = TextEditingController();
   bool isLoading = false;
+   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -98,15 +99,20 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               Commonbutton(
                   isLoading: isLoading,
                   title: 'Add to list ',
-                  onTap: () async {
-                    if (_formKey.currentState!.validate()) {
+                  onTap: ()  {
+                     Addtolist();
+                  }),
+            ]),
+          ),
+        ));
+  }
+    Future  Addtolist()async{
+if (_formKey.currentState!.validate()) {
                       try {
                         setState(() {
                           isLoading = true;
                         });
-                        //  await   FirebaseFirestore.instance.collection('todo').doc().set({
-                        //       'title':'slhehe'
-                        //     });
+                        
                         DocumentReference docRef = await FirebaseFirestore
                             .instance
                             .collection('todo')
@@ -131,9 +137,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         });
                       }
                     }
-                  }),
-            ]),
-          ),
-        ));
-  }
+    }
+
 }
