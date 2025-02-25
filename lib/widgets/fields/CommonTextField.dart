@@ -5,25 +5,31 @@ import 'package:to_do_app/constant/app_colors.dart';
 
 
 class CommonTextfield extends StatelessWidget {
-   final String hintText;
+   final String? hintText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final bool? isPassword;
-  const CommonTextfield({super.key,required this.hintText,required this.controller,this.validator,this.isPassword});
+  final IconData? sufixicon;
+ final IconData? prefixcon1;
+ final TextInputType inputType;
+  const CommonTextfield({super.key, this.hintText,required this.controller,this.validator,this.isPassword,  this.sufixicon, this.prefixcon1, required this.inputType,});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 18, right: 17),
       child:  TextFormField(
+        // readOnly: ,
       validator: validator,
       obscureText: isPassword??false,
-       
+       keyboardType: inputType,
         
         controller: controller,
-        enabled: true,
+       
         decoration: InputDecoration(
           hintText: hintText,
+          suffixIcon: Icon(sufixicon),
+          prefixIcon: Icon(prefixcon1),
           hintStyle: TextStyle(
             fontFamily: "font",
             fontSize: 15,
@@ -49,6 +55,7 @@ class CommonTextfield extends StatelessWidget {
           
           contentPadding: EdgeInsets.all(15),
         ),
+        
       ),
     );
   }

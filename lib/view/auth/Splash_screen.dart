@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:to_do_app/view/auth/Signin_screen.dart';
 import 'package:to_do_app/view/auth/onboarding_screen.dart';
-import 'package:to_do_app/view/user/todohome_screen.dart';
+import 'package:to_do_app/view/user/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,7 +22,7 @@ class _SplashscreenState extends State<SplashScreen> {
         User? user = FirebaseAuth.instance.currentUser;
         if (user != null) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => TodohomeScreen()));
+              context, MaterialPageRoute(builder: (_) => HomeScreen()));
         } else {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => SigninScreen()));

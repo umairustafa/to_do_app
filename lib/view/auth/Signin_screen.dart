@@ -8,7 +8,7 @@ import 'package:to_do_app/constant/app_icons.dart';
 import 'package:to_do_app/constant/app_images.dart';
 import 'package:to_do_app/view/auth/Forgotpassword_screen.dart';
 import 'package:to_do_app/view/auth/sign_up_screen.dart';
-import 'package:to_do_app/view/user/add_todo_screen.dart';
+import 'package:to_do_app/view/user/home_screen.dart';
 import 'package:to_do_app/widgets/button/commonbutton.dart';
 import 'package:to_do_app/widgets/fields/CommonTextField.dart';
 
@@ -69,6 +69,7 @@ class _SigninScreenState extends State<SigninScreen> {
               height: 8.h,
             ),
             CommonTextfield(
+              inputType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == '' || value == null) {
                     return 'Please enter your Email';
@@ -81,6 +82,7 @@ class _SigninScreenState extends State<SigninScreen> {
               height: 20.h,
             ),
             CommonTextfield(
+              inputType:TextInputType.visiblePassword ,
                 validator: (value) {
                   if (value == '' || value == null) {
                     return 'Please enter Confirm Password';
@@ -126,7 +128,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         password: PasswordController.text,
                       );
 
-                      Get.to(() => AddTodoScreen());
+                      Get.to(() => HomeScreen());
                       setState(() {
                         isLoading = false;
                       });

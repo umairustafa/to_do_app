@@ -69,6 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 30.h,
                 ),
                 CommonTextfield(
+                  inputType: TextInputType.name,
                     validator: (value) {
                       if (value == '' || value == null) {
                         return 'Please enter your Full Name';
@@ -81,6 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 25.h,
                 ),
                 CommonTextfield(
+                  inputType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == '' || value == null) {
                         return 'Please enter your email';
@@ -93,6 +95,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 25.h,
                 ),
                 CommonTextfield(
+                  inputType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value == '' || value == null) {
                         return 'Please enter Create a Password';
@@ -105,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 26.h,
                 ),
                 CommonTextfield(
+                  inputType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value == '' || value == null) {
                         return 'Please enter Confirm your Password';

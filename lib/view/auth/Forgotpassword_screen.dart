@@ -68,7 +68,7 @@ class _ForgotpasswordScreenState extends State<ForgotpasswordScreen> {
                 height: 26.h,
               ),
               CommonTextfield(
-                
+                inputType: TextInputType.visiblePassword,
                   validator: (Value) {
                     if (Value == '' || Value == null) {
                       return 'Please entre your email';

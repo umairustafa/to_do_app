@@ -6,7 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:to_do_app/constant/app_colors.dart';
 import 'package:to_do_app/constant/app_icons.dart';
 import 'package:to_do_app/constant/app_images.dart';
-import 'package:to_do_app/view/auth/sign_up_screen.dart';
+import 'package:to_do_app/view/user/home_screen.dart';
 import 'package:to_do_app/widgets/button/commonbutton.dart';
 import 'package:to_do_app/widgets/fields/CommonTextField.dart';
 
@@ -15,6 +15,7 @@ class AddTodoScreen extends StatefulWidget {
   @override
   State<AddTodoScreen> createState() => _AddTodoScreenState();
 }
+
 class _AddTodoScreenState extends State<AddTodoScreen> {
   final TextEditingController titelController = TextEditingController();
   final TextEditingController DescriptionController = TextEditingController();
@@ -35,7 +36,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       Navigator.pop(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignUpScreen(),
+                            builder: (context) => HomeScreen(),
                           ));
                     },
                     child: Icon(
@@ -68,6 +69,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 height: 8.h,
               ),
               CommonTextfield(
+                inputType: TextInputType.text,
                   validator: (Value) {
                     if (Value == '' || Value == null) {
                       return 'Please entre Title';
@@ -80,6 +82,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 height: 26.h,
               ),
               CommonTextfield(
+                inputType: TextInputType.text,
                   validator: (Value) {
                     if (Value == '' || Value == null) {
                       return 'Please entre Description';
@@ -111,11 +114,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           'title': titelController.text,
                           'description': DescriptionController.text,
                           'time': DateTime.now().toString(),
+                          'docId': docRef.id,
                         });
                         setState(() {
                           isLoading = false;
                         });
-                        Get.back();
+                        Get.to(HomeScreen());
                         Get.snackbar('succes', 'field add');
                       } on FirebaseException catch (e) {
                         Get.snackbar('error', e.toString());
@@ -127,7 +131,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   }),
             ]),
           ),
-       )
-    );
+        ));
   }
 }
